@@ -1,0 +1,12 @@
+name: 'SES Template Uploader'
+description: 'Create or update AWS SES template files'
+inputs:
+  templates:
+    description: 'The location of SES template files'
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: 'mail'
+  color: 'yellow'

@@ -1,0 +1,36 @@
+{
+  "name": "ses-template-uploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "package": "ncc build index.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/managemy-lease/ses-template-uploader.git"
+  },
+  "keywords": [
+    "AWS",
+    "SES",
+    "Simple Email Service",
+    "GitHub",
+    "Actions",
+    "Template"
+  ],
+  "author": "managemy.lease",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/managemy-lease/ses-template-uploader/issues"
+  },
+  "homepage": "https://github.com/managemy-lease/ses-template-uploader#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@aws-sdk/client-ses": "^3.76.0",
+    "aws-sdk": "^2.1120.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "0.33.3"
+  }
+}

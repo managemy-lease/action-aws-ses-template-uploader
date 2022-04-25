@@ -1,0 +1,25 @@
+name: 'example'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  example:
+    name: 'Create/Update Example Template'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Create or update Amazon SES templates
+        uses: managemy-lease/action-ses-template-uploader@v1
+        with:
+          templates: 'example/'

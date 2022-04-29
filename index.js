@@ -21,35 +21,48 @@ async function run() {
         // Create a new SES Client, taking credentials from aws-actions/configure-aws-credentials
         const client = new SESClient();
 
-        // Read each file in the directory
-        fs.readdirSync(templatesDir).forEach((name) => {
-            // Parse the JSON from the file
-            const file = JSON.parse(fs.readFileSync(`${templatesDir}/${name}`));
-
-            // First, figure out if we have a template
-            client.send(new GetTemplateCommand({TemplateName: file.Template.TemplateName})).then(() => {
-                // We have a template! Update it
-
-                client.send(new UpdateTemplateCommand({
-                    Template: file.Template
-                })).then(() => {
-                    core.notice(`Updated template: ${file.Template.TemplateName} (${name})`);
-                }).catch((error) => {
-                    core.setFailed(error.message);
-                });
-            }).catch((error) => {
-                client.send(new CreateTemplateCommand({
-                    Template: file.Template
-                })).then(() => {
-                    core.notice(`Created template: ${file.Template.TemplateName} (${name})`);
-                }).catch((error) => {
-                    core.setFailed(error.message);
-                });
-            })
-        });
+        // Parse each file in the directory
+        parseFiles(templatesDir);
     } catch (error) {
         core.setFailed(error.message);
     }
+}
+
+function parseFiles(templatesDir) {
+    // Read each file in the directory
+    fs.readdirSync(templatesDir).forEach((name) => {
+        const path = `${templatesDir}/${name}`;
+
+        // If it's a directory, read the file within there
+        if (fs.lstatSync(path).isDirectory()) {
+            readFiles(path);
+            return;
+        }
+
+        // Parse the JSON from the file
+        const file = JSON.parse(fs.readFileSync(path));
+
+        // First, figure out if we have a template
+        client.send(new GetTemplateCommand({TemplateName: file.Template.TemplateName})).then(() => {
+            // We have a template! Update it
+
+            client.send(new UpdateTemplateCommand({
+                Template: file.Template
+            })).then(() => {
+                core.notice(`Updated template: ${file.Template.TemplateName} (${name})`);
+            }).catch((error) => {
+                core.setFailed(error.message);
+            });
+        }).catch((error) => {
+            client.send(new CreateTemplateCommand({
+                Template: file.Template
+            })).then(() => {
+                core.notice(`Created template: ${file.Template.TemplateName} (${name})`);
+            }).catch((error) => {
+                core.setFailed(error.message);
+            });
+        })
+    });
 }
 
 run();

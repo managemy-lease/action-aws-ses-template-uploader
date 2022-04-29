@@ -22,13 +22,13 @@ async function run() {
         const client = new SESClient();
 
         // Parse each file in the directory
-        parseFiles(templatesDir);
+        parseFiles(client, templatesDir);
     } catch (error) {
         core.setFailed(error.message);
     }
 }
 
-function parseFiles(templatesDir) {
+function parseFiles(client, templatesDir) {
     // Read each file in the directory
     fs.readdirSync(templatesDir).forEach((name) => {
         const path = `${templatesDir}/${name}`;
@@ -53,7 +53,7 @@ function parseFiles(templatesDir) {
             }).catch((error) => {
                 core.setFailed(error.message);
             });
-        }).catch((error) => {
+        }).catch(() => {
             client.send(new CreateTemplateCommand({
                 Template: file.Template
             })).then(() => {

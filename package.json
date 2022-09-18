@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/managemy-lease/ses-template-uploader#readme",
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.9.1",
     "@aws-sdk/client-ses": "^3.76.0",
     "aws-sdk": "^2.1120.0"
   },

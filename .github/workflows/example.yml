@@ -20,6 +20,6 @@ jobs:
           aws-region: eu-west-2
 
       - name: Create or update Amazon SES templates
-        uses: managemy-lease/action-aws-ses-template-uploader@v2-pre
+        uses: managemy-lease/action-aws-ses-template-uploader@v2.0.1
         with:
           templates: 'example/'

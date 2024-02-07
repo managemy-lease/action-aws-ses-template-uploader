@@ -1,4 +1,4 @@
-## SES Tempalte Uploader for GitHub Actions
+## SES Template Uploader for GitHub Actions
 
 Creates or updates SES templates within the repository.
 

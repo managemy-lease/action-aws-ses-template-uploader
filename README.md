@@ -15,7 +15,7 @@ Creates or updates SES templates within the repository.
 
 ```yaml
     - name: Create or update Amazon SES templates
-        uses: managemy-lease/ses-template-uploader@v1
+        uses: managemy-lease/ses-template-uploader@v2.0.1
         with:
           templates: 'assets/email_templates'
 ```
